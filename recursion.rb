@@ -59,8 +59,18 @@ def bsearch(array,target)
 end
 
 def merge(arr1, arr2)
-  comb = arr1+arr2
-  comb.sort
+  sort = arr1 + arr2
+  nochange = false
+  while !nochange
+    nochange = true
+    (0...sort.length-1).each do |i|
+      if sort[i] > sort[i+1]
+        sort[i], sort[i+1] = sort[i+1],sort[i]
+        nochange = false
+      end
+    end
+  end
+  sort
 end
 
 
@@ -84,9 +94,19 @@ def subsets(array)
   sets + changed
 end
 
-p subsets([]) # => [[]]
-p subsets([1]) # => [[], [1]]
-p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
-p subsets([1, 2, 3])
-# => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
-p subsets([1, 2, 3, 4])
+def permutations(array)
+  return [array] if array.length == 1
+  add  = array[-1]
+  last_level = permutations(array[0...-1])
+  results = []
+  last_level.each do |perm|
+    (0..perm.length).each do |index|
+      #p results
+      results << perm[0...index] + [add] + perm[index..-1]
+    end
+  end
+  #p results
+  results
+end
+
+p merge_sort([38,27,43,3,9,82,10])
