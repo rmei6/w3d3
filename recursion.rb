@@ -70,5 +70,23 @@ def merge_sort(arr)
   merge(merge_sort(arr[0...middle]), merge_sort(arr[middle..-1]))
 end
 
-p merge_sort([38,27,43,3,9,82,10])
+def subsets(array)
+  return [[]] if array.empty?
+  sets = []
+  add_element = array[-1]
+  recieved = subsets(array[0...-1])
+  sets += recieved
+  changed = []
+  recieved.each do |sub|
+    new_sub = sub + [add_element]
+    changed << new_sub
+  end
+  sets + changed
+end
 
+p subsets([]) # => [[]]
+p subsets([1]) # => [[], [1]]
+p subsets([1, 2]) # => [[], [1], [2], [1, 2]]
+p subsets([1, 2, 3])
+# => [[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]
+p subsets([1, 2, 3, 4])
