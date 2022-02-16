@@ -109,4 +109,17 @@ def permutations(array)
   results
 end
 
-p merge_sort([38,27,43,3,9,82,10])
+def greedy_make_change(num, arr)
+  
+  return [] if arr.empty?
+
+  coins = num / arr[0] 
+  amount = [arr[0]] * coins
+  sum = arr[0] * coins
+  amount + greedy_make_change(num - sum, arr.drop(1))
+
+
+end
+
+p greedy_make_change(24, [10,7,1])
+
