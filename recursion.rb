@@ -21,8 +21,6 @@ end
 class Array
 
   def deep_dup
-    # return self unless self.is_a?(Array)
-
     new_arr = []
     self.each do |ele|
       if !ele.is_a?(Array)
@@ -30,23 +28,34 @@ class Array
       else
         new_arr << ele.deep_dup
       end
-
     end
     new_arr
   end
 
 end
 
+def fibonacci(n)
+  return [1] if n == 1
+  return [1,1] if n == 2
 
-robot_parts = [
-  ["nuts", "bolts", "washers"],
-  ["capacitors", "resistors", "inductors"]
-]
+  prev = fibonacci(n-1)
+  last = prev[-1]
+  second_last = prev[-2]
+  prev << last + second_last
+end
 
-robot_parts_copy = robot_parts.deep_dup
+def bsearch(array,target)
+  return nil if array.empty?
+  middle = array.length / 2
+  check_num = array[middle]
+  return middle if check_num == target
+  if check_num < target
+    index = bsearch(array[middle+1..-1],target)
+    return index if index == nil
+    return middle + index + 1
+  elsif check_num > target
+    return bsearch(array[0...middle],target)
+  end
+end
 
-# shouldn't modify robot_parts
-robot_parts_copy[1] << "LEDs"
-# but it does
-p robot_parts[1] # => ["capacitors", "resistors", "inductors", "LEDs"]
-p robot_parts_copy[1]
+
