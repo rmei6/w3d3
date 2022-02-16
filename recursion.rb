@@ -121,5 +121,19 @@ def greedy_make_change(num, arr)
 
 end
 
-p greedy_make_change(24, [10,7,1])
+def make_better_change(num,arr)
+  return [] if num == 0
+  #solutions = []
+  combo = nil
+  arr.each_with_index do |coin,index|
+    if coin <= num
+      combo = [coin] + make_better_change(num-coin,arr[index..-1])
+      #solutions << combo
+      #return combo
+    end
+  end
+  #solutions
+  combo
+end
 
+p make_better_change(24, [10,7,1])
