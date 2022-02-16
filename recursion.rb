@@ -52,10 +52,23 @@ def bsearch(array,target)
   if check_num < target
     index = bsearch(array[middle+1..-1],target)
     return index if index == nil
-    return middle + index + 1
+    return middle + index + 1 #+1 is important because new array starts from 0 instead of 1
   elsif check_num > target
     return bsearch(array[0...middle],target)
   end
 end
 
+def merge(arr1, arr2)
+  comb = arr1+arr2
+  comb.sort
+end
+
+
+def merge_sort(arr)
+  return arr if arr.length == 1 || arr.length == 0
+  middle = arr.length/2
+  merge(merge_sort(arr[0...middle]), merge_sort(arr[middle..-1]))
+end
+
+p merge_sort([38,27,43,3,9,82,10])
 
